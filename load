@@ -15,10 +15,10 @@ background.BackgroundColor3 = Color3.fromRGB(128, 0, 128) -- Purple
 background.BackgroundTransparency = 1 -- Start fully transparent
 background.Parent = screenGui
 
--- Create centered violet rectangle (larger size, lowered position)
+-- Create centered violet rectangle (wider and lower)
 local rectangle = Instance.new("Frame")
-rectangle.Size = UDim2.new(0.6, 0, 0.4, 0) -- Larger size
-rectangle.Position = UDim2.new(0.5, 0, 0.6, 0) -- Lowered position
+rectangle.Size = UDim2.new(0.9, 0, 0.4, 0) -- Wider width (90%)
+rectangle.Position = UDim2.new(0.5, 0, 0.75, 0) -- Lowered position
 rectangle.AnchorPoint = Vector2.new(0.5, 0.5)
 rectangle.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Pure violet
 rectangle.BackgroundTransparency = 1 -- Start fully transparent
@@ -26,13 +26,13 @@ rectangle.Parent = screenGui
 
 -- Add rounded corners
 local uiCorner = Instance.new("UICorner")
-uiCorner.CornerRadius = UDim.new(0, 20) -- Rounded corners
+uiCorner.CornerRadius = UDim.new(0, 20)
 uiCorner.Parent = rectangle
 
 -- Add glowing outline using UIStroke
 local uiStroke = Instance.new("UIStroke")
 uiStroke.Thickness = 4
-uiStroke.Color = Color3.fromRGB(200, 150, 255) -- Light purple for glow
+uiStroke.Color = Color3.fromRGB(200, 150, 255)
 uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 uiStroke.Parent = rectangle
 
@@ -46,59 +46,74 @@ uiGradient.Color = ColorSequence.new({
 uiGradient.Rotation = 45
 uiGradient.Parent = uiStroke
 
--- Add "BREACHING ROBLOX ANTI CHEAT SYSTEM.." text
+-- Text arrays for cycling
+local mainTexts = {
+    "BREACHING ROBLOX ANTI CHEAT SYSTEM..",
+    "DO NOT LEAVE TO BE STILL UNDETECTED",
+    "OVERRIDING SECURITY PROTOCOLS...",
+    "INJECTING STEALTH MODULES...",
+    "ACCESSING INTERNAL SYSTEMS..."
+}
+
+local waitTexts = {
+    "Injecting stealth modules...",
+    "Calibrating sensors...",
+    "Encrypting network traffic...",
+    "Masking IP address...",
+    "Deploying cloaking device..."
+}
+
+-- Add main text label
 local mainText = Instance.new("TextLabel")
-mainText.Size = UDim2.new(0.8, 0, 0.4, 0)
+mainText.Size = UDim2.new(0.95, 0, 0.4, 0)
 mainText.Position = UDim2.new(0.5, 0, 0.3, 0)
 mainText.AnchorPoint = Vector2.new(0.5, 0.5)
 mainText.BackgroundTransparency = 1
-mainText.Text = "BREACHING ROBLOX ANTI CHEAT SYSTEM.."
+mainText.Text = mainTexts[1]
 mainText.TextColor3 = Color3.fromRGB(255, 255, 255)
 mainText.TextScaled = true
-mainText.Font = Enum.Font.Arcade -- Retro arcade font
+mainText.Font = Enum.Font.Arcade
 mainText.TextTransparency = 1 -- Start fully transparent
 mainText.Parent = rectangle
 
--- Add "Injecting stealth modules..." text
+-- Add wait text label
 local waitText = Instance.new("TextLabel")
-waitText.Size = UDim2.new(0.8, 0, 0.2, 0)
+waitText.Size = UDim2.new(0.95, 0, 0.2, 0)
 waitText.Position = UDim2.new(0.5, 0, 0.7, 0)
 waitText.AnchorPoint = Vector2.new(0.5, 0.5)
 waitText.BackgroundTransparency = 1
-waitText.Text = "Injecting stealth modules..."
+waitText.Text = waitTexts[1]
 waitText.TextColor3 = Color3.fromRGB(200, 200, 200)
 waitText.TextScaled = true
 waitText.Font = Enum.Font.Arcade
 waitText.TextTransparency = 1 -- Start fully transparent
 waitText.Parent = rectangle
 
--- Create loading bar
+-- Create loading bar frame
 local loadingBarFrame = Instance.new("Frame")
-loadingBarFrame.Size = UDim2.new(0.6, 0, 0.05, 0)
+loadingBarFrame.Size = UDim2.new(0.9, 0, 0.05, 0)
 loadingBarFrame.Position = UDim2.new(0.5, 0, 0.85, 0)
 loadingBarFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-loadingBarFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Dark background
-loadingBarFrame.BackgroundTransparency = 1 -- Start fully transparent
+loadingBarFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+loadingBarFrame.BackgroundTransparency = 1
 loadingBarFrame.Parent = rectangle
 
 local loadingBar = Instance.new("Frame")
-loadingBar.Size = UDim2.new(0, 0, 1, 0) -- Starts empty
-loadingBar.BackgroundColor3 = Color3.fromRGB(200, 150, 255) -- Light purple
-loadingBar.BackgroundTransparency = 1 -- Start fully transparent
+loadingBar.Size = UDim2.new(0, 0, 1, 0)
+loadingBar.BackgroundColor3 = Color3.fromRGB(200, 150, 255)
+loadingBar.BackgroundTransparency = 1
 loadingBar.Parent = loadingBarFrame
 
--- Add UIStroke to loading bar for retro outline
 local barStroke = Instance.new("UIStroke")
 barStroke.Thickness = 2
 barStroke.Color = Color3.fromRGB(255, 255, 255)
 barStroke.Parent = loadingBarFrame
 
--- Add rounded corners to loading bar
 local barCorner = Instance.new("UICorner")
 barCorner.CornerRadius = UDim.new(0, 10)
 barCorner.Parent = loadingBarFrame
 
--- Fade-in animation (0.5 seconds)
+-- Fade-in animation
 local function fadeIn()
     local fadeInfo = TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.In)
     TweenService:Create(background, fadeInfo, {BackgroundTransparency = 0.7}):Play()
@@ -119,5 +134,37 @@ local function animateLoadingBar()
     end)
 end
 
+-- Function to cycle text with fade effect
+local function cycleText(label, textList)
+    local index = 1
+    while true do
+        wait(6) -- Time between changes, adjust as needed
+
+        -- Fade out
+        local fadeOut = TweenInfo.new(0.7, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+        TweenService:Create(label, fadeOut, {TextTransparency = 1}):Play()
+        wait(0.7)
+
+        -- Update text
+        index = index % #textList + 1
+        label.Text = textList[index]
+
+        -- Fade in
+        local fadeIn = TweenInfo.new(0.7, Enum.EasingStyle.Sine, Enum.EasingDirection.In)
+        TweenService:Create(label, fadeIn, {TextTransparency = 0}):Play()
+        wait(0.7)
+    end
+end
+
+-- Start fade-in and loading animation
 fadeIn()
 animateLoadingBar()
+
+-- Start cycling texts in separate threads
+spawn(function()
+    cycleText(mainText, mainTexts)
+end)
+
+spawn(function()
+    cycleText(waitText, waitTexts)
+end)
