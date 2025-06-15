@@ -119,7 +119,5 @@ local function animateLoadingBar()
     end)
 end
 
--- Add 1.5-second delay before running animations
-task.wait(1.5)
 fadeIn()
 animateLoadingBar()
