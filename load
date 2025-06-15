@@ -17,8 +17,8 @@ background.Parent = screenGui
 
 -- Create centered violet rectangle (larger size, lowered position)
 local rectangle = Instance.new("Frame")
-rectangle.Size = UDim2.new(0.5, 0, 0.3, 0) -- Larger size
-rectangle.Position = UDim2.new(0.5, 0, 0.65, 0) -- Lowered position
+rectangle.Size = UDim2.new(0.6, 0, 0.4, 0) -- Larger size
+rectangle.Position = UDim2.new(0.5, 0, 0.6, 0) -- Lowered position
 rectangle.AnchorPoint = Vector2.new(0.5, 0.5)
 rectangle.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Pure violet
 rectangle.BackgroundTransparency = 1 -- Start fully transparent
@@ -98,9 +98,9 @@ local barCorner = Instance.new("UICorner")
 barCorner.CornerRadius = UDim.new(0, 10)
 barCorner.Parent = loadingBarFrame
 
--- Fade-in animation (faster: 0.5 seconds)
+-- Fade-in animation (0.5 seconds)
 local function fadeIn()
-    local fadeInfo = TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.In) -- Reduced from 2 to 0.5 seconds
+    local fadeInfo = TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.In)
     TweenService:Create(background, fadeInfo, {BackgroundTransparency = 0.7}):Play()
     TweenService:Create(rectangle, fadeInfo, {BackgroundTransparency = 0}):Play()
     TweenService:Create(mainText, fadeInfo, {TextTransparency = 0}):Play()
@@ -119,6 +119,7 @@ local function animateLoadingBar()
     end)
 end
 
--- Run animations
+-- Add 1.5-second delay before running animations
+task.wait(1.5)
 fadeIn()
 animateLoadingBar()
