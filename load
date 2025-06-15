@@ -18,7 +18,7 @@ background.Parent = screenGui
 -- Create centered violet rectangle (wider and lower)
 local rectangle = Instance.new("Frame")
 rectangle.Size = UDim2.new(0.95, 0, 0.4, 0) -- Wider width (95%)
-rectangle.Position = UDim2.new(0.5, 0, 0.85, 0) -- Lowered position (85% down)
+rectangle.Position = UDim2.new(0.5, 0, 0.8, 0) -- Lowered position (85% down)
 rectangle.AnchorPoint = Vector2.new(0.5, 0.5)
 rectangle.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Pure violet
 rectangle.BackgroundTransparency = 1 -- Start fully transparent
