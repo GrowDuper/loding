@@ -16,10 +16,10 @@ background.BackgroundColor3 = Color3.fromRGB(128, 0, 128) -- Purple
 background.BackgroundTransparency = 0.7 -- Translucent
 background.Parent = screenGui
 
--- Create centered violet rectangle (larger size)
+-- Create centered violet rectangle (larger size, lowered position)
 local rectangle = Instance.new("Frame")
-rectangle.Size = UDim2.new(0.5, 0, 0.3, 0) -- Increased size (wider and taller)
-rectangle.Position = UDim2.new(0.5, 0, 0.5, 0)
+rectangle.Size = UDim2.new(0.6, 0, 0.4, 0) -- Larger size
+rectangle.Position = UDim2.new(0.5, 0, 0.6, 0) -- Lowered position (from 0.5 to 0.65)
 rectangle.AnchorPoint = Vector2.new(0.5, 0.5)
 rectangle.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Pure violet
 rectangle.BackgroundTransparency = 0
